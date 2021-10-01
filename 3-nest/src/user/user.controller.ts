@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
+import { Helper } from './user.resources/helper';
 
 @Controller('user')
 export class UserController {
@@ -11,7 +12,7 @@ export class UserController {
     }
 
     @Post("/addId")
-    addId(@Body() body:any){
+    addId(@Body() body:any){    
         return this.userService.addId(body);        
 
     }
@@ -32,8 +33,8 @@ export class UserController {
     }
 
     @Post('/login')
-    loginUser(@Body("email") email:string, @Body("password") password:string){
-        return this.userService.login(email, password);
+    loginUser(@Body("email") email:string, @Body("password") password:string){  
+        return this.userService.login(password);
     }
 
 

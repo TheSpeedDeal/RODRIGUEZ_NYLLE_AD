@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user.model';
+import { Helper } from './user.resources/helper';
+
 
 @Injectable()
 export class UserService {
@@ -8,12 +10,11 @@ export class UserService {
     private loginU: Map<string,string> = new Map<string,string>();
 
     getAll(){
-       var populatedData = [];
-       for(const [number, users] of this.users.entries()){
-          users.log();
-          
-       }
-       return populatedData;
+        var populatedData = [];
+        for(const [number, users] of Helper.populate()){
+           users.log();
+        }
+        return populatedData;
     }
 
     logAllId(){
@@ -24,7 +25,7 @@ export class UserService {
     }
     addId(id:any){
         var newId: User;
-        newId = new User(id?.id, id?.name, id?.age, id?.email, id?.password);
+        newId = new User(id?.name, id?.age, id?.email, id?.password);
         this.users.set(id.id, newId);
         this.loginU.set(id.email,id.password);
         this.logAllId();
@@ -46,14 +47,14 @@ export class UserService {
 
     changeData(id:any, user:any){//Change
         var newId: User;
-        newId = new User(id?.id, id?.name, id?.age, id?.email, id?.password);
+        newId = new User(id?.name, id?.age, id?.email, id?.password);
         this.users.set(id, newId);
         this.logAllId();
     }
 
-    login(email:string, password: string){
-        for(const [number,users] of this.users.entries()){
-            users.login(email, password);
+    login(password: string){
+        for(const [number,users] of Helper.populate()){
+            users.login(password);
         }
     }
 

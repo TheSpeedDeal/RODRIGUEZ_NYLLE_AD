@@ -1,40 +1,60 @@
-  
+import { CRUDReturn } from './user.resources/crud_return.interface';
+import { Helper } from './user.resources/helper';
 export class User {
-    private id: number;
-    private name: string;
-    private age:number;
-    private email:string;
-    private password: string;
+  public id: string;
+  private name: string;
+  private age: number;
+  private email: string;
+  private password: string;
 
-    constructor(id:number,name:string,age:number,email:string,password:string){
-        this.id=id;
-        this.name=name;
-        this.age=age;
-        this.email = email;
-        this.password = password;
+  constructor(name: string, age: number, email: string, password: string) {
+    this.id = Helper.generateUID();
+    this.name = name;
+    this.age = age;
+    this.email = email;
+    this.password = password;
+  }
+
+  login(password: string): CRUDReturn {
+    try {
+      if (this.password === password) {
+        return { success: true, data: this.toJson() };
+      } else {
+        throw new Error(`${this.email} login fail, password does not match`);
+      }
+    } catch (error) {
+      return { success: false, data: error.message };
     }
+  }
 
-   
-
-    login(email:string, password:string){ 
-        if(email == this.email && password == this.password){
-            return 1;
-          }
-          else{
-             return 0;
-          }
-    }
-
-    toJson(){
-        return {
-            id: this.id,
-            name:this.name,
-            age: this.age,
-            email: this.email
+   matches(term: string)/**: Boolean */{
+    try {
+        if (this.id === term) {
+          return { success: true, data: this.toJson() };
+        } else {
+          throw new Error(`${this.email} Does not Match`);
         }
-    }
-    
-    log(){
-        console.log(`${this.id}:${this.name}, ${this.age}, ${this.email}`);
-    }   
+      } catch (error) {
+        return { success: false, data: error.message };
+      }
+   
+  }
+
+  replaceValues(body: any)/**: Boolean */{
+   //hehe you didn't think I would actually give you the answers, yes?
+  }
+
+  log() {
+    console.log(this.toJson());
+  }
+
+  toJson() {    
+     return{
+         Id: this.id,
+         Name: this.name,
+         Age: this.age,
+         Email: this.email,
+         Password: this.password,
+     }
+  }
 }

@@ -6,12 +6,12 @@ import { Helper } from './user.resources/helper';
 export class UserController {
     constructor(private readonly userService:UserService){}
 
-    @Get("/all")
+    @Get("/all")//GenerateID
     getAll(){
         return this.userService.getAll();
     }
 
-    @Post("/addId")
+    @Post("/addId")//register
     addId(@Body() body:any){    
         return this.userService.addId(body);        
 
@@ -23,7 +23,7 @@ export class UserController {
     }
 
     @Delete('/removeId/:id')
-    deleteId(@Param("id") id: number){
+    deleteId(@Param("id") id: any){
         return this.userService.deleteId(id);
     }
 
@@ -33,8 +33,8 @@ export class UserController {
     }
 
     @Post('/login')
-    loginUser(@Body("email") email:string, @Body("password") password:string){  
-        return this.userService.login(password);
+    loginUser(body:any){  
+        return this.userService.login(body);
     }
 
 
@@ -42,4 +42,16 @@ export class UserController {
     search(@Param("term") term: any){
         return this.userService.search(term);
     }
+
+    @Get("/logall")
+    logAll(){
+        return this.userService.logAllId();
+    }
+
+    @Patch("/updateId/:id")
+    updateId(@Param("id") id:number, @Body() body: any){
+        return this.userService.updateId(id,body);
+    }
+
+
 }

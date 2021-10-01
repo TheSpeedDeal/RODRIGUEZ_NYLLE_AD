@@ -27,21 +27,43 @@ export class User {
     }
   }
 
-   matches(term: string)/**: Boolean */{
-    try {
-        if (this.id === term) {
-          return { success: true, data: this.toJson() };
-        } else {
-          throw new Error(`${this.email} Does not Match`);
-        }
-      } catch (error) {
-        return { success: false, data: error.message };
-      }
-   
+   matches(term: string): Boolean {
+    var keys: Array<string> = Helper.describeClass(User);
+    keys = Helper.removeItemOnce(keys, 'password');
+    for(const key of keys){
+      if(`${this[key]}` === term) return true;  
+    }
+    return false;
   }
 
-  replaceValues(body: any)/**: Boolean */{
-   //hehe you didn't think I would actually give you the answers, yes?
+  replaceValues(body: any): Boolean {
+    var change: number = 0;
+    if(body.name){
+      if(typeof body.name === 'string'){
+        this.name = body.name;
+        change++;
+      }
+    }
+    if(body.age){
+      if(typeof body.age === typeof 0){
+        this.age = body.age;
+        change++;
+      }
+    }
+    if(body.email){
+      if(typeof body.email === 'string'){
+        this.email = body.email;
+        change++;
+      }
+    }
+    if(body.password){
+      if(typeof body.password === 'string'){
+        this.password = body.password;
+        change++;
+      }
+    }
+    if(change === 4) return true;
+    else return false;
   }
 
   log() {
@@ -54,7 +76,33 @@ export class User {
          Name: this.name,
          Age: this.age,
          Email: this.email,
-         Password: this.password,
      }
   }
+
+  //Patch
+  updateValues(body: any): Boolean {
+    if(body.name){
+      if(typeof body.name === 'string'){
+        this.name = body.name;
+      }
+    }
+    if(body.age){
+      if(typeof body.age === typeof 0){
+        this.age = body.age;
+      }
+    }
+    if(body.email){
+      if(typeof body.email === 'string'){
+        this.email = body.email;
+      }
+    }
+    if(body.password){
+      if(typeof body.password === 'string'){
+        this.password = body.password;
+      }
+    }
+    return true;
+  }
+
+
 }

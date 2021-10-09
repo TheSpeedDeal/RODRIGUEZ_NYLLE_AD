@@ -1,5 +1,6 @@
 import { CRUDReturn } from './user.resources/crud_return.interface';
 import { Helper } from './user.resources/helper';
+import { database } from 'firebase-admin';
 export class User {
   public id: string;
   private name: string;
@@ -10,8 +11,8 @@ export class User {
   constructor(name: string, age: number, email: string, password: string) {
     this.id = Helper.generateUID();
     this.name = name;
-    this.age = age;
     this.email = email;
+    this.age = age;
     this.password = password;
   }
 
@@ -103,6 +104,4 @@ export class User {
     }
     return true;
   }
-
-
 }

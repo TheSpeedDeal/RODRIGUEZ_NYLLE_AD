@@ -1,57 +1,56 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Helper } from './user.resources/helper';
+import { database } from 'firebase-admin';
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService:UserService){}
 
-    @Get("/all")//GenerateID
-    getAll(){
-        return this.userService.getAll();
+
+    //register
+    @Post('/register')
+        register(@Body() body: any) {
+        return this.userService.addId(body);
     }
-
-    @Post("/addId")//register
-    addId(@Body() body:any){    
-        return this.userService.addId(body);        
-
-    }
-
-    @Get('/all/:id')
-    getOne(@Param("id") id:number) {
-      return this.userService.getId(id);
-    }
-
-    @Delete('/removeId/:id')
-    deleteId(@Param("id") id: any){
-        return this.userService.deleteId(id);
-    }
-
-    @Put('/changeData/:id')
-    changeData(@Param("id") id:number, @Body() body: any){
-        return this.userService.changeData(id, body);
-    }
-
+    //login
     @Post('/login')
-    loginUser(body:any){  
-        return this.userService.login(body);
+        login(@Body('email') email: string, @Body('password') password: string) {
+        return this.userService.login(email, password);
     }
-
-
+    //get all users
+    @Get('/all')
+        getAllUser() {
+       return this.userService.getAll();
+    }
+    //search 1 user
     @Get('/search/:term')
-    search(@Param("term") term: any){
+        searchUser(@Param('term') term: string) {
         return this.userService.search(term);
     }
 
-    @Get("/logall")
-    logAll(){
-        return this.userService.logAllId();
-    }
+  @Get('/get/:id')
+  getUserID(@Param('id') id: string) {
+    return this.userService.getId(id);
+  }
 
-    @Patch("/updateId/:id")
-    updateId(@Param("id") id:number, @Body() body: any){
-        return this.userService.updateId(id,body);
-    }
+  //change tanan
+  @Put('/:id')
+  replaceValuePut(@Param('id') id: string, @Body() body: any) {
+    return this.userService.changeData(id, body);
+  }
+
+  //change one or something
+  @Patch('/:id')
+  replaceValuePatch(@Param('id') id: string, @Body() body: any) {
+    return this.userService.updateId(id, body);
+  }
+
+  //delete
+  @Delete('/delete/:id')
+  deleteUser(@Param('id') id: string) {
+    return this.userService.deleteId(id);
+  }
 
 
 }

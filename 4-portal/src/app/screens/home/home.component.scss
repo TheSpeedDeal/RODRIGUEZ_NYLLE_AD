@@ -1,0 +1,55 @@
+
+table {
+  margin: auto;
+  width: 50%;
+  text-align: center;  
+  color: #ffffff;  
+  padding: 20px;
+  margin: auto;  
+  position: absolute;
+  background-image: linear-gradient(rgb(32, 95, 110), rgba(97, 192, 221, 0.671)) ; 
+  border-radius: 5px ;
+  position: relative;
+  top: 13%;
+  border: 5px solid rgb(1, 20, 49)
+}
+th {
+  border-right:3px solid rgb(1, 20, 49);
+  border-left:3px solid rgb(1, 20, 49);
+  border-bottom: 3px solid rgb(1, 20, 49);
+  border-top: 3px solid rgb(1, 20, 49);
+  border-radius: 10px ;
+  background-image: linear-gradient(rgb(32, 95, 110), rgba(97, 192, 221, 0.671)) ;
+  padding: 10px;
+}
+td {
+  border-right:3px solid rgb(1, 20, 49);
+  border-left:3px solid rgb(1, 20, 49);
+  border-bottom: 3px solid rgb(1, 20, 49);
+  border-top: 3px solid rgb(1, 20, 49);
+  background-image: linear-gradient(rgb(32, 95, 110), rgba(97, 192, 221, 0.671)) ;
+}
+  
+button{  
+  margin: auto;
+  width: 10%;
+  text-align: center;  
+  color: #ffffff;  
+  padding: 2px;
+  background-image: linear-gradient(rgb(32, 95, 110), rgba(97, 192, 221, 0.671)) ; 
+  border-radius: 10px ;
+  position: relative;    
+}  
+  
+button:hover {
+  background-color:darkslategrey;
+}
+  
+.buttons{
+  margin-left: 30%;
+
+  .input{
+    text-align: center;
+    width: 50%;
+  }
+}

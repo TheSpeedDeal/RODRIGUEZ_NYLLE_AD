@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   fcPassword = new FormControl();
   requestResult = ' ';
   async login() {
-    var result:any = await this.api.post(environment.API_URL + "/user/all",{"email":this.fcEmail.value, "password": this.fcPassword.value}).toPromise();
+    var result:any = await this.api.post(environment.API_URL + "/user/login",{"email":this.fcEmail.value, "password": this.fcPassword.value}).toPromise();
     console.log(result.success);
     this.requestResult = result.data;
     console.log(this.requestResult);

@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient} from '@angular/common/http'; 
 import { environment } from 'src/environments/environment';
+import { HttpClient} from '@angular/common/http'; 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private api: HttpClient) {}
+  constructor(private router: Router, private api: HttpClient) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   fcEmail = new FormControl();
   fcPassword = new FormControl();
   requestResult = ' ';
   async login() {
-    var result:any = await this.api.post(environment.API_URL + "/user/login",{"email":this.fcEmail.value, "password": this.fcPassword.value}).toPromise();
+    var result: any = await this.api.post(environment.API_URL + "/user/login", 
+      { "email": this.fcEmail.value, "password": this.fcPassword.value });
     console.log(result.success);
     this.requestResult = result.data;
     console.log(this.requestResult);
-    if(result.success) this.nav('home');
-    else{alert('Email is Bad')};
+    if (result.success) this.nav('home');
+    else { alert('Email is Bad') };
     console.log(result.success);
     this.requestResult = result.data;
-
     /* if (
       this.fcEmail.value == 'daniel@gmail.com' &&
       this.fcPassword.value == '12345678'

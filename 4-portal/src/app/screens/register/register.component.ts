@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { 
   FormControl, 
@@ -6,7 +5,7 @@ import {
   Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-
+import { HttpClient} from '@angular/common/http'; 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -86,8 +85,7 @@ export class RegisterComponent implements OnInit {
       this.nav('home');
     }
     console.log(result.success);
-   this.requestResult = result.data;
-  
+    this.requestResult = result.data;
 }
   
   

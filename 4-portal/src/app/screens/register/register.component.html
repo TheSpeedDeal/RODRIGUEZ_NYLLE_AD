@@ -26,26 +26,12 @@
       </label>    
         <input type="password" name="pass" id="pass" placeholder="Password" formControlName="fcPassword2" />    
         <br><br> 
-        <!-- <input type="button1" (click)="nav('register')" name="reg" id="reg" value="Register">
-        <br><br>
-        <input type="button" (click)="login()" name="log" id="log" value="Log In Here">       
-        <br><br>     -->
-        
-        <!-- <input type="checkbox" id="check">   
-         
-        <span>Remember me</span>    
-        <br><br>     -->
-        <!-- <p>{{ error }}</p>
-        <p>{{egisterForm.value | json}}</p>
-        <p>{{egisterForm.status }}</p> -->
         <button type="submit" [disabled]="!registerForm.valid" id="createAcc" (click)="register()">
           CREATE ACCOUNT
         </button><br><br>
-        <!-- <p>{{requestResult | json}}</p> -->
     </form>
       <div class="actions">
         <button (click)="nav('login')" id="back">BACK TO LOGIN</button>
       </div>
-    
   </div>
 </div>

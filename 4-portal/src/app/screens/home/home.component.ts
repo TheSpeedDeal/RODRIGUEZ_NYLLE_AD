@@ -3,12 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient} from '@angular/common/http'; 
+import { User } from './home.model'
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  users: Array<User> = [];
   requestResult: any;
   show: Boolean = true;
   editdaid: Boolean = false;
@@ -29,49 +33,64 @@ export class HomeComponent implements OnInit {
     this.display();
   }
 
-  async display() {
+  async display(): Promise<Array<User>>{
     var result:any =await this.api.get(environment.API_URL + "/user/all").toPromise();
-    this.show = true;
-    this.editdaid = false;
-    this.requestResult = result.data
-    console.log(result.success);
-  }
-
-  async getId(){
-    if(this.fcId.value.length >=36){
-      try {
-        var result:any = await this.api.get(environment.API_URL + "/user/"+ this.fcId.value).toPromise();
-        
-        if(result.success){
-          this.show = false;
-          this.requestResult.id = this.fcId.value
-          this.requestResult.name = result.data.name
-          this.requestResult.age = result.data.age
-          this.requestResult.email= result.data.email
-        }
-        else{
-          this.show = true;
-          alert("Error");
-        }
+    var temp: Array<User> = [];
+    if (result.success) {
+      result.data.forEach((json: any) => {
+        var tempU = User.fromJson(json.id, json);
+        if (tempU != null) temp.push(tempU);
+        this.show = true;
+        this.editdaid = false;
+        this.requestResult = result.data
         console.log(result.success);
-        console.log(this.fcId);
-      } catch (error) {
-        alert('Searched not in Database');
+        });
+      }
+      return temp;
+    }
+  
+  async getId(){
+    if(this.fcId.value != null){
+      if(this.fcId.value.length >= 27){
+        try {
+          var result:any = await this.api.get(environment.API_URL + "/user/"+ this.fcId.value).toPromise();
+          
+          if(result.success){
+            this.show = false;
+            this.requestResult.id = this.fcId.value
+            this.requestResult.name = result.data.name
+            this.requestResult.age = result.data.age
+            this.requestResult.email= result.data.email
+          }
+          else{
+            this.show = true;
+            alert("Error");
+          }
+          console.log(result.success);
+          console.log(this.fcId);
+        } catch (error) {
+          alert('Searched not in Database');
+        }
+      }
+      else{
+        try {
+          var result:any = await this.api.get(environment.API_URL + "/user/search/"+ this.fcId.value).toPromise();
+            this.requestResult = result.data
+            console.log(result.success);
+        } catch (error) {
+          alert('Searched not in Database');
+        }
       }
     }
     else{
-      try {
-        var result:any = await this.api.get(environment.API_URL + "/user/search/"+ this.fcId.value).toPromise();
-          this.requestResult = result.data
-          console.log(result.success);
-      } catch (error) {
-        alert('Searched not in Database');
-      }
+      alert('No ID input');
     }
   }
     
   async deleteId(){
     if(this.fcId.value != null){
+      var c = confirm("Are you sure?");
+     if(c){
       if(this.fcId.value.length >= 27){
         var result:any = await this.api.delete(environment.API_URL + "/user/"+ this.fcId.value).toPromise();
         this.requestResult = result.data
@@ -81,6 +100,7 @@ export class HomeComponent implements OnInit {
       else{
         alert('Incorrect Input');
       }
+     }
     }
     else{
       alert('No ID input');
@@ -97,8 +117,13 @@ export class HomeComponent implements OnInit {
   }
 
   async editBtn(){
-    this.show = false;
-    this.editdaid = true;
+    if(this.fcId.value != null){
+      this.show = false;
+      this.editdaid = true;
+    }
+    else{
+      alert('No ID input');
+    }
   }
 
 
@@ -143,7 +168,8 @@ export class HomeComponent implements OnInit {
 
   async editId(){
     var result:any = await this.api.patch(environment.API_URL+"/user/"+ this.fcId.value, //change
-    {"name": this.editForm.value.fcName, 
+    {
+     "name": this.editForm.value.fcName, 
      "age":this.editForm.value.fcAge,
      "email":this.editForm.value.fcEmail,
      "password":this.editForm.value.fcPassword

@@ -18,10 +18,10 @@ export class LoginComponent implements OnInit {
   requestResult = ' ';
   async login() {
     var result: any = await this.api.post(environment.API_URL + "/user/login", 
-      { "email": this.fcEmail.value, "password": this.fcPassword.value });
-    console.log(result.success);
-    this.requestResult = result.data;
-    console.log(this.requestResult);
+      { "email": this.fcEmail.value, "password": this.fcPassword.value }).toPromise();
+      console.log(result.success);
+      this.requestResult = result.data;
+      console.log(this.requestResult);
     if (result.success) this.nav('home');
     else { alert('Email is Bad') };
     console.log(result.success);

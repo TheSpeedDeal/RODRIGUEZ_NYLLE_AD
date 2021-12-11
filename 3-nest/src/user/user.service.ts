@@ -69,7 +69,8 @@ export class UserService {
             body.name,
             body.age,
             body.email,
-            body.password
+            body.password,
+            body.balance,
           );
           if (await this.saveToDB(newUser)) {
             // if (DEBUG) await this.logAllUsers();
@@ -143,6 +144,7 @@ export class UserService {
               data["age"],
               data["email"],
               data["password"],
+              data["balance"],
               doc.id
             )
           );

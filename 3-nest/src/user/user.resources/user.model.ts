@@ -9,12 +9,14 @@ export class User {
   private age: number;
   public email: string;
   private password: string;
+  private balance: number;
 
   constructor(
     name: string,
     age: number,
     email: string,
     password: string,
+    balance: number,
     id?: string
   ) {
     if (id != undefined) {
@@ -26,6 +28,7 @@ export class User {
     this.age = age;
     this.email = email;
     this.password = password;
+    this.balance = balance;
   }
 
   static async retrieve(id: string): Promise<User> {
@@ -39,6 +42,7 @@ export class User {
           data["age"],
           data["email"],
           data["password"],
+          data["balance"],
           result.id
         );
       } else {
@@ -64,6 +68,7 @@ export class User {
         data["age"],
         data["email"],
         data["password"],
+        data["balance"],
         doc.id
       );
     }
@@ -101,6 +106,7 @@ export class User {
     name: string;
     age: number;
     email: string;
+    balance: number;
     password?: string;
   } {
     if (hidePassword)
@@ -109,12 +115,14 @@ export class User {
         name: this.name,
         age: this.age,
         email: this.email,
+        balance: this.balance,
       };
     return {
       name: this.name,
       age: this.age,
       email: this.email,
       password: this.password,
+      balance: this.balance,
     };
   }
 

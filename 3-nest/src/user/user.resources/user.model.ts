@@ -16,7 +16,7 @@ export class User {
     age: number,
     email: string,
     password: string,
-    balance: number,
+    balance?: number,
     id?: string
   ) {
     if (id != undefined) {
@@ -28,7 +28,11 @@ export class User {
     this.age = age;
     this.email = email;
     this.password = password;
-    this.balance = balance;
+    if (balance != undefined) {
+      this.balance = balance;
+    } else {
+      this.balance = 0;
+    }
   }
 
   static async retrieve(id: string): Promise<User> {

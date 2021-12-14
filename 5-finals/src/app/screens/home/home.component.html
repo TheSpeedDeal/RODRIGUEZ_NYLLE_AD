@@ -1,0 +1,12 @@
+<p>home works!</p>
+
+<button type="submit" (click)="logout()">LogOut</button><br>
+<button type="submit" (click)="nav('balance')">Check Balance</button>
+<br><br><br><br><br><br><br><br><br><br>
+<label>{{ this.requestResult }}</label>>
+<br><br><br><br><br><br><br><br><br><br>
+<label>Email Address</label>
+<input type="email" #emailChange>
+<label>Password</label>
+<input type="password" #passwordChange>
+<button type="submit" (click)="update(emailChange.value , passwordChange.value)">Update</button>    

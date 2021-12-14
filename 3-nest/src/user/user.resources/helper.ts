@@ -9,7 +9,7 @@ export class Helper {
   }
 
   static generateUID(): string {
-    return uid().toString().replace(/-/g, '').substring(0, 27);
+    return uid().toString().replace(/-/g, '').substring(0, 5);
   }
   //removes an item matching the value from the array
   static removeItemOnce(arr: Array<any>, value: any): Array<any> {

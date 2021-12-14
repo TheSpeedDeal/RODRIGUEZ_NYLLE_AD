@@ -19,7 +19,7 @@ export class AirlinesService {
               var newAirlines: Airlines = new Airlines(
                 body.destination,
                 body.origin,
-                
+                body.bookings,
                 body.capacity,
                 
                 body.cost,

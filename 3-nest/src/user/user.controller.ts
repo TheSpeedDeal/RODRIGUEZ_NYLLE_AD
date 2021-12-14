@@ -38,7 +38,7 @@ export class UserController {
     return this.userService.getOne(id);
   }
 
-  @Put('/:id')
+  @Put('/replacePut/:id')
   replaceValuePut(@Param('id') id: string, @Body() body: any) {
     return this.userService.replaceValuePut(id, body);
   }
@@ -47,7 +47,7 @@ export class UserController {
     return this.userService.resetDatabase();
   }
 
-  @Patch('/:id')
+  @Patch('/replacePatch/:id')
   replaceValuePatch(@Param('id') id: string, @Body() body: any) {
     return this.userService.replaceValuePatch(id, body);
   }

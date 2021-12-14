@@ -24,12 +24,13 @@ export class Helper {
   static validBody(body: any): { valid: boolean; data: string } {
     try {
     //   var keys: Array<string> = Helper.describeClass(User);
-    var keys: Array<string> = ['destination', 'origin', 'capacity', 'departure', 'air_type', 'cost'];
+    var keys: Array<string> = ['destination', 'origin', 'capacity', 'departure', 'air_type', 'cost', 'bookings'];
       var types: Map<string, string> = new Map<string, string>();
       types.set('destination', typeof '');
       types.set('origin', typeof '');
       types.set('capacity', typeof 0);
       types.set('cost', typeof 0);
+      types.set('bookings', typeof 0);
       for (const key of Object.keys(body)) {
         if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
           return { valid: false, data: `${key} is not a valid attribute` };

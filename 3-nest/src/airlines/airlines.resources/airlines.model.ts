@@ -7,14 +7,14 @@ export class Airlines {
     public destination: string;
     public origin: string;
     public capacity: number;
-    
+    public bookings: number;
     public cost: number;
   
     constructor(
         destination: string,
         origin: string,
         capacity: number,
-        
+        bookings: number,
         cost: number,
         id?: string,
     ) {
@@ -26,6 +26,7 @@ export class Airlines {
         this.destination = destination;
         this.origin = origin;
         this.capacity = capacity;
+        this.bookings = bookings;
         this.cost = cost;
     }
 
@@ -34,7 +35,7 @@ export class Airlines {
             destination: this.destination,
             origin: this.origin,
             capacity: this.capacity,
-            
+            bookins: this.bookings,
             cost: this.cost,
           };
 
@@ -66,6 +67,7 @@ export class Airlines {
               data["cost"],
               data["destination"],
               data["origin"],
+              data["bookings"],
               result.id
             );
           } else {

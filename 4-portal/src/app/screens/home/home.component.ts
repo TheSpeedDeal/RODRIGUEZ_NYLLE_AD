@@ -167,7 +167,7 @@ export class HomeComponent implements OnInit {
   }
 
   async editId(){
-    var result:any = await this.api.patch(environment.API_URL+"/user/"+ this.fcId.value, //change
+    var result:any = await this.api.patch(environment.API_URL+"/replacePatch/user/"+ this.fcId.value, //change
     {
      "name": this.editForm.value.fcName, 
      "age":this.editForm.value.fcAge,
